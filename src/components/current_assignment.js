@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 // More imports here
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import IconButton from '@material-ui/core/IconButton';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import CardMedia from '@material-ui/core/CardMedia';
 
 class CurrentAssignment extends Component {
   constructor(props) {
@@ -20,7 +26,32 @@ class CurrentAssignment extends Component {
     const { assignment } = this.props;
 
     return (
-      <div />
+      <Card className={classes.root}>
+        <CardHeader
+          title="Current Assignment"
+          subheader={assignment.title}
+        />
+        <CardMedia
+          className={classes.media}
+          image={assignment.image}
+          title={assignment.title}
+        />
+        <CardContent>
+          <div className={classes.descriptionContainer}>
+            <p className={classes.description}>{assignment.description.long}</p>
+            <IconButton
+              className={classnames(classes.expand, {
+                [classes.expandOpen]: this.state.expanded,
+              })}
+              onClick={this.handleExpandClick}
+              aria-expanded={this.state.expanded}
+              aria-label="Show more"
+            >
+              <ExpandMoreIcon />
+            </IconButton>
+          </div>
+        </CardContent>
+      </Card>
     );
   }
 }

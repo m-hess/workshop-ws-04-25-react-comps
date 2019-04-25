@@ -8,6 +8,8 @@ import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CardMedia from '@material-ui/core/CardMedia';
+import ProgressBar from './progress_bar';
+import AssignmentStepper from './assignment_stepper';
 
 class CurrentAssignment extends Component {
   constructor(props) {
@@ -20,6 +22,17 @@ class CurrentAssignment extends Component {
   }
 
   // handlers will go here
+  handleStepChange = (newStep) => {
+    this.setState({
+      activeStep: newStep,
+    });
+  }
+
+  handleExpandClick = () => {
+    this.setState(prevState => ({
+      expanded: !prevState.expanded,
+    }));
+  }
 
   render() {
     const { classes } = this.props;
@@ -37,6 +50,7 @@ class CurrentAssignment extends Component {
           title={assignment.title}
         />
         <CardContent>
+          <ProgressBar activeStep={this.state.activeStep} steps={assignment.steps} />
           <div className={classes.descriptionContainer}>
             <p className={classes.description}>{assignment.description.long}</p>
             <IconButton
@@ -50,6 +64,7 @@ class CurrentAssignment extends Component {
               <ExpandMoreIcon />
             </IconButton>
           </div>
+          {this.state.expanded ? <AssignmentStepper activeStep={this.state.activeStep} steps={assignment.steps} handleStepChange={this.handleStepChange} /> : null}
         </CardContent>
       </Card>
     );

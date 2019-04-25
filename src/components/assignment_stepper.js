@@ -9,6 +9,22 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
 class AssignmentStepper extends Component {
+  // constructor(props) {
+  //   super(props);
+  // }
+
+  handleNext = () => {
+    this.props.handleStepChange(this.props.activeStep + 1);
+  };
+
+  handleBack = () => {
+    this.props.handleStepChange(this.props.activeStep - 1);
+  };
+
+  handleReset = () => {
+    this.props.handleStepChange(0);
+  };
+
   render() {
     const stepTitles = this.props.steps.map(step => step.title);
     const stepContent = this.props.steps.map(step => step.content);
